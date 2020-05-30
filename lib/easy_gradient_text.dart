@@ -94,11 +94,12 @@ class GradientText extends StatelessWidget {
 
   Gradient _linearGradient(Rect bounds) {
     return LinearGradient(
-        begin: _getGradientPosition('begin'),
-        end: _getGradientPosition('end'),
-        colors: colors,
-        transform: transform,
-        tileMode: tileMode);
+      begin: _getGradientDirection('begin'),
+      end: _getGradientDirection('end'),
+      colors: colors,
+      transform: transform,
+      tileMode: tileMode,
+    );
   }
 
   Gradient _radialGradient(Rect bounds) {
@@ -109,7 +110,7 @@ class GradientText extends StatelessWidget {
     );
   }
 
-  Alignment _getGradientPosition(String key) {
+  Alignment _getGradientDirection(String key) {
     final Map<String, Alignment> map = {
       'begin': Alignment.centerLeft,
       'end': Alignment.centerRight
