@@ -2,6 +2,10 @@
 
 A Flutter Widget to draw gradients into text.
 
+# Demo
+
+![Alt Text](https://s7.gifyu.com/images/easy_gradient_text.gif)
+
 # Install
 
 Add the plugin
