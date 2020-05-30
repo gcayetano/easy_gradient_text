@@ -9,7 +9,7 @@ Add the plugin
 ```yaml
 dependencies:
   ...
-  easy_gradient_text: ^0.1.0
+  easy_gradient_text: ^1.0.0
 ```
 
 # Usage
