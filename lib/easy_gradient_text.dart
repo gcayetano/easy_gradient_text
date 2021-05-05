@@ -10,10 +10,10 @@ class GradientText extends StatelessWidget {
   final List<Color> colors;
 
   /// Text style.
-  final TextStyle style;
+  final TextStyle? style;
 
   /// How visual overflow should be handled.
-  final TextOverflow overflow;
+  final TextOverflow? overflow;
 
   /// How the text should be aligned horizontally.
   final TextAlign textAlign;
@@ -23,7 +23,7 @@ class GradientText extends StatelessWidget {
 
   /// Use a custom gradient. This will override the [type],
   /// [colors], [transform] and [tileMode] parameters
-  final Gradient customGradient;
+  final Gradient? customGradient;
 
   /// Set gradient direction. Possible values:
   ///
@@ -35,7 +35,7 @@ class GradientText extends StatelessWidget {
 
   /// Used for transforming gradient shaders without applying
   /// the same transform to the entire canvas.
-  final GradientTransform transform;
+  final GradientTransform? transform;
 
   /// Set gradient type. Possible values:
   ///
@@ -44,9 +44,9 @@ class GradientText extends StatelessWidget {
   final GradientType type;
 
   GradientText(
-      {Key key,
-      @required this.text,
-      @required this.colors,
+      {Key? key,
+      required this.text,
+      required this.colors,
       this.style,
       this.overflow,
       this.textAlign = TextAlign.start,
@@ -55,8 +55,7 @@ class GradientText extends StatelessWidget {
       this.type = GradientType.linear,
       this.gradientDirection = GradientDirection.ltr,
       this.transform})
-      : assert(text != null, 'Text cannot be null.'),
-        assert(colors != null && colors.length > 1,
+      : assert(colors.length > 1,
             'Colors cannot be null. You must specify a minimum of two colors'),
         super(key: key);
 
@@ -68,7 +67,8 @@ class GradientText extends StatelessWidget {
       },
       child: Text(
         text,
-        style: style?.copyWith(color: Colors.white) ?? TextStyle(color: Colors.white),
+        style: style?.copyWith(color: Colors.white) ??
+            TextStyle(color: Colors.white),
         overflow: overflow,
         textAlign: textAlign,
       ),
@@ -77,16 +77,14 @@ class GradientText extends StatelessWidget {
 
   Shader _createShader(Rect bounds) {
     if (customGradient != null) {
-      return customGradient.createShader(bounds);
+      return customGradient!.createShader(bounds);
     }
 
     switch (type) {
       case GradientType.linear:
         return _linearGradient(bounds).createShader(bounds);
-        break;
       case GradientType.radial:
         return _radialGradient(bounds).createShader(bounds);
-        break;
       default:
         return _linearGradient(bounds).createShader(bounds);
     }
@@ -94,8 +92,8 @@ class GradientText extends StatelessWidget {
 
   Gradient _linearGradient(Rect bounds) {
     return LinearGradient(
-      begin: _getGradientDirection('begin'),
-      end: _getGradientDirection('end'),
+      begin: _getGradientDirection('begin')!,
+      end: _getGradientDirection('end')!,
       colors: colors,
       transform: transform,
       tileMode: tileMode,
@@ -110,7 +108,7 @@ class GradientText extends StatelessWidget {
     );
   }
 
-  Alignment _getGradientDirection(String key) {
+  Alignment? _getGradientDirection(String key) {
     final Map<String, Alignment> map = {
       'begin': Alignment.centerLeft,
       'end': Alignment.centerRight
